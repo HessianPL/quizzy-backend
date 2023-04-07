@@ -6,6 +6,7 @@ import express, {json} from 'express';
 import rateLimit from 'express-rate-limit'
 import 'express-async-errors';
 import {QuizRecord} from "./records/Quiz.record";
+import {QuizRouter} from "./routers/QuizRouter";
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -27,16 +28,7 @@ app.get('/', (req, res) => {
     res.send('Working fine sir!')
 })
 
-app.get('/quiz', async (req, res) => {
-    const quizList = await QuizRecord.listAll();
-    res.send(quizList)
-})
-
-app.get('/quiz/:id', async (req, res) => {
-    const id = req.params.id;
-    const foundQuiz = await QuizRecord.showOneQuiz(id);
-    res.send(foundQuiz);
-})
+app.use('/quiz', QuizRouter);
 
 app.listen(3001, () => {
     console.log(`Listening on http://localhost:3001`)
