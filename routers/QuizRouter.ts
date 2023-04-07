@@ -7,7 +7,7 @@ const express = require('express');
 export const QuizRouter = express.Router();
 
 QuizRouter.get('/', async (req: Request, res: Response):Promise<void> => {
-    const quizList = await QuizRecord.listAll();
+    const quizList = await QuizRecord.listAll(10,0);
     const quizListResponse: QuizEntityResponse[] = quizList.map(quiz => {
         const { password, passwordForEdit, ...newObject }  = quiz;
         return newObject

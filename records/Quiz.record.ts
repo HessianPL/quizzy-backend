@@ -26,8 +26,10 @@ export class QuizRecord implements QuizEntity {
         return result.length === 0 ? null : result[0];
     }
 
-    static async listAll(): Promise<QuizEntity[]> {
-        const [results] = await pool.execute('SELECT * FROM `quizzes`') as QuizRecordResults;
+    static async listAll(limit: number, offset: number): Promise<QuizEntity[]> {
+        const [results] = await pool.execute('SELECT * FROM `quizzes` LIMIT :limit OFFSET :offset', {
+            limit, offset
+        }) as QuizRecordResults;
         return results;
     }
 
