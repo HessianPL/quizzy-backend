@@ -1,11 +1,11 @@
 export interface QuizEntity {
     id: string;
-    passwordProtected: boolean;
+    passwordProtected: 0 | 1;
     password?: string;
     passwordForEdit?: string;
-    publicListing: boolean;
-    instantFeedback: boolean;
-    endingFeedback: boolean;
+    publicListing: 0 | 1;
+    instantFeedback: 0 | 1;
+    endingFeedback: 0 | 1;
     timerQuiz?: number;
     passingPercentage: number;
     title: string;

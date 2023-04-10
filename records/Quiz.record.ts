@@ -7,16 +7,52 @@ type QuizRecordResults = [QuizEntity[], FieldPacket[]];
 
 export class QuizRecord implements QuizEntity {
     public description: string;
-    public endingFeedback: boolean;
+    public endingFeedback: 0 | 1;
     public id: string;
-    public instantFeedback: boolean;
+    public instantFeedback: 0 | 1;
     public passingPercentage: number;
     public password: string;
     public passwordForEdit: string;
-    public passwordProtected: boolean;
-    public publicListing: boolean;
+    public passwordProtected: 0 | 1;
+    public publicListing: 0 | 1;
     public timerQuiz: number;
     public title: string;
+
+    constructor(obj: QuizEntity) {
+        this.id = obj.id;
+        this.description = obj.description;
+        this.endingFeedback = obj.endingFeedback;
+        this.instantFeedback = obj.instantFeedback;
+        this.passingPercentage = obj.passingPercentage;
+        this.password = obj.password;
+        this.passwordForEdit = obj.passwordForEdit;
+        this.passwordProtected = obj.passwordProtected;
+        this.publicListing = obj.publicListing;
+        this.timerQuiz = obj.timerQuiz;
+        this.title = obj.title;
+    }
+
+    public async insert(): Promise<string> {
+        if (!this.id) {
+            this.id = uuid();
+        }
+
+        await pool.execute("INSERT INTO `quizzes` VALUES (:id, :passwordProtected, :password, :passwordForEdit, :publicListing, :instantFeedback, :endingFeedback, :timerQuiz, :passingPercentage, :title, :description)", {
+            id: this.id,
+            passwordProtected: this.passwordProtected,
+            password: this.password,
+            passwordForEdit: this.passwordForEdit,
+            publicListing: this.publicListing,
+            instantFeedback: this.instantFeedback,
+            endingFeedback: this.endingFeedback,
+            timerQuiz: this.timerQuiz,
+            passingPercentage: this.passingPercentage,
+            title: this.title,
+            description: this.description,
+        });
+
+        return this.id;
+    }
 
     static async showOneQuiz(id: string): Promise<QuizEntity> {
         const [result] = await pool.execute('SELECT * FROM `quizzes` WHERE `id` = :id', {
