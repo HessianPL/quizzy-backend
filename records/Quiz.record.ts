@@ -11,8 +11,8 @@ export class QuizRecord implements QuizEntity {
     public id: string;
     public instantFeedback: 0 | 1;
     public passingPercentage: number;
-    public password: string;
-    public passwordForEdit: string;
+    public password: string = '';
+    public passwordForEdit: string = '';
     public passwordProtected: 0 | 1;
     public publicListing: 0 | 1;
     public timerQuiz: number;
@@ -39,12 +39,12 @@ export class QuizRecord implements QuizEntity {
 
         await pool.execute("INSERT INTO `quizzes` VALUES (:id, :passwordProtected, :password, :passwordForEdit, :publicListing, :instantFeedback, :endingFeedback, :timerQuiz, :passingPercentage, :title, :description)", {
             id: this.id,
-            passwordProtected: this.passwordProtected,
-            password: this.password,
-            passwordForEdit: this.passwordForEdit,
-            publicListing: this.publicListing,
-            instantFeedback: this.instantFeedback,
-            endingFeedback: this.endingFeedback,
+            passwordProtected: Boolean(this.passwordProtected),
+            password: this.password || null,
+            passwordForEdit: this.passwordForEdit || null,
+            publicListing: Boolean(this.publicListing),
+            instantFeedback: Boolean(this.instantFeedback),
+            endingFeedback: Boolean(this.endingFeedback),
             timerQuiz: this.timerQuiz,
             passingPercentage: this.passingPercentage,
             title: this.title,

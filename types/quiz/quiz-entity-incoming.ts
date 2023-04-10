@@ -1,3 +1,13 @@
-import {QuizEntity} from "./quiz-entity";
-
-export type QuizEntityIncoming = Omit<QuizEntity, 'id' | 'password' | 'passwordForEdit'>
+export interface QuizEntityIncoming {
+    id?: string;
+    passwordProtected: boolean;
+    password?: string;
+    passwordForEdit?: string;
+    publicListing: boolean;
+    instantFeedback: boolean;
+    endingFeedback: boolean;
+    timerQuiz?: number;
+    passingPercentage: number;
+    title: string;
+    description: string;
+}
