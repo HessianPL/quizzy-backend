@@ -20,3 +20,12 @@ QuizRouter.get('/:id', async (req: Request, res: Response) => {
     const foundQuiz = await QuizRecord.showOneQuiz(id);
     res.send(foundQuiz);
 })
+
+QuizRouter.post('/',  async(req: Request, res: Response) => {
+    const data = {
+        ...req.body
+    }
+    const newQuiz = await new QuizRecord(data);
+    const newQuizID = await newQuiz.insert();
+    res.status(201).json(`New added with an ID of ${newQuizID}`);
+})
