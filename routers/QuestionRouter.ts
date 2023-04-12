@@ -4,6 +4,12 @@ import {QuestionEntity} from "../types";
 
 export const QuestionRouter = Router();
 
+QuestionRouter.get('/:id', async (req: Request, res: Response) => {
+    const quizID = req.params.id;
+    const questionsForQuiz= await QuestionRecord.listQuestionsForQuiz(quizID);
+
+    res.json(questionsForQuiz);
+});
 
 QuestionRouter.post('/',  async(req: Request, res: Response) => {
     const data = {
