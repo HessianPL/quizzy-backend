@@ -5,7 +5,7 @@ import {QuestionEntity} from "../types";
 
 type QuestionRecordResults = [QuestionEntity[], FieldPacket[]];
 
-export class QuizRecord implements QuestionEntity {
+export class QuestionRecord implements QuestionEntity {
     public id?: string;
     public quizID: string;
     public text: string;

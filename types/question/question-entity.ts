@@ -1,7 +1,7 @@
 export interface QuestionEntity {
-    id?: string;
-    quizID: string;
-    text: string;
+    id?: string,
+    quizID: string,
+    text: string,
     answer1: string,
     answer1isValid: 0 | 1,
     answer2: string,
