@@ -1,11 +1,14 @@
 import { createPool } from "mysql2/promise";
-const { DBHOST, DBUSER, DBNAME } = process.env;
+import {config} from "../config/config";
+
+
+const {dbHost, dbUser, dbPassword, dbDatabase} = config;
 
 export const pool = createPool({
-    host: DBHOST || 'localhost',
-    user: DBUSER || 'dbuser',
-    // password: DBPASSWORD || 'yourpasshere',
-    database: DBNAME || 'quizzy',
+    host: dbHost || 'localhost',
+    user: dbUser || 'root',
+    password: dbPassword || '',
+    database: dbDatabase || 'quizzy',
     namedPlaceholders: true,
     decimalNumbers: true,
 });
