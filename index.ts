@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import cors from 'cors';
-import express, {json} from 'express';
+import express, {json, Router} from 'express';
 import rateLimit from 'express-rate-limit'
 import 'express-async-errors';
 import {QuizRecord} from "./records/Quiz.record";
@@ -25,12 +25,13 @@ app.use(cors({
 app.use(json());
 app.use(limiter)
 
-app.get('/', (req, res) => {
-    res.send('Working fine sir!')
-})
+const router = Router();
 
-app.use('/quiz', QuizRouter);
-app.use('/question', QuestionRouter);
+
+router.use('/quiz', QuizRouter);
+router.use('/question', QuestionRouter);
+
+app.use('/api', router);
 
 app.listen(3001, () => {
     console.log(`Listening on http://localhost:3001`)
