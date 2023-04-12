@@ -1,7 +1,7 @@
 import {pool} from "../utils/db";
 import {FieldPacket} from "mysql2";
 import {v4 as uuid} from "uuid";
-import {QuestionEntity} from "../types";
+import {QuestionEntity, QuizEntity} from "../types";
 
 type QuestionRecordResults = [QuestionEntity[], FieldPacket[]];
 
@@ -36,7 +36,6 @@ export class QuestionRecord implements QuestionEntity {
         if (!this.id) {
             this.id = uuid();
         }
-
         await pool.execute("INSERT INTO `questions` VALUES (:id, :quizID, :text, :answer1, :answer2, :answer3, :answer4, :answer1isValid, :answer2isValid, :answer3isValid, :answer4isValid)", {
             id: this.id,
             quizID: this.quizID,
@@ -50,9 +49,14 @@ export class QuestionRecord implements QuestionEntity {
             answer3isValid: this.answer3isValid,
             answer4isValid: this.answer4isValid
         });
-
-        console.log('Questions added to the DB!')
-
         return this.id;
+    }
+
+    static async listQuestionsForQuiz(quizID: string): Promise<QuestionEntity[]> {
+        const [results] = await pool.execute('SELECT * FROM `questions` WHERE `quizID` = :quizID', {
+            quizID
+        }) as QuestionRecordResults;
+
+        return results;
     }
 }
