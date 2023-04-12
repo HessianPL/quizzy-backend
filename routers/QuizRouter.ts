@@ -27,5 +27,5 @@ QuizRouter.post('/',  async(req: Request, res: Response) => {
     }
     const newQuiz = await new QuizRecord(data);
     const newQuizID = await newQuiz.insert();
-    res.status(201).json(newQuizID);
+    res.json(newQuizID);
 })

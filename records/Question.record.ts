@@ -53,7 +53,7 @@ export class QuestionRecord implements QuestionEntity {
     }
 
     static async listQuestionsForQuiz(quizID: string): Promise<QuestionEntity[]> {
-        const [results] = await pool.execute('SELECT * FROM `questions` WHERE `quizID` = :quizID', {
+        const [results] = await pool.execute('SELECT `text`, `answer1`, `answer2`, `answer3`, `answer4` FROM `questions` WHERE `quizID` = :quizID', {
             quizID
         }) as QuestionRecordResults;
 
