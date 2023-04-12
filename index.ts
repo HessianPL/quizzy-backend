@@ -7,6 +7,7 @@ import rateLimit from 'express-rate-limit'
 import 'express-async-errors';
 import {QuizRecord} from "./records/Quiz.record";
 import {QuizRouter} from "./routers/QuizRouter";
+import {QuestionRouter} from "./routers/QuestionRouter";
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/quiz', QuizRouter);
+app.use('/question', QuestionRouter);
 
 app.listen(3001, () => {
     console.log(`Listening on http://localhost:3001`)
