@@ -44,10 +44,10 @@ export class QuestionRecord implements QuestionEntity {
             answer2: this.answer2,
             answer3: this.answer3,
             answer4: this.answer4,
-            answer1isValid: this.answer1isValid,
-            answer2isValid: this.answer2isValid,
-            answer3isValid: this.answer3isValid,
-            answer4isValid: this.answer4isValid
+            answer1isValid: Boolean(this.answer1isValid),
+            answer2isValid: Boolean(this.answer2isValid),
+            answer3isValid: Boolean(this.answer3isValid),
+            answer4isValid: Boolean(this.answer4isValid)
         });
         return this.id;
     }
